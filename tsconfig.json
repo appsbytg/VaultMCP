@@ -19,14 +19,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ]
     }
   },
-  "include": [
-    "src"
+  "files": [
+    "src/main.tsx",
+    "src/vite-env.d.ts"
   ]
 }

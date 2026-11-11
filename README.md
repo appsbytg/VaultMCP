@@ -59,7 +59,11 @@ Without it, the form saves to the claude.ai Artifact store when it runs as an ar
 
 ## Deploy
 
-`npm run build`, then upload `dist/` to Vercel, Netlify, Cloudflare Pages or any static host.
+GitHub Pages: `vite.config.ts` sets `base: '/vaultmcp/'` for normal builds, so the site works at `https://<user>.github.io/vaultmcp/`. If your repository has a different name, change that value to `/<repo-name>/`. Then `npm ci && npm run build` and publish the `dist/` folder.
+
+Other static hosts (Vercel, Netlify, Cloudflare Pages) serve from the root: set `base` to `'/'` there.
+
+Only files reachable from `src/main.tsx` are type-checked (`files` in `tsconfig.json`), so a leftover component that nothing imports won't fail the build. Delete it anyway to keep the repo tidy.
 
 ## Before launch
 
