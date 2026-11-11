@@ -1,5 +1,5 @@
 import type { FaqItem } from './shared/Accordion'
-import type { Agent, Alternative, CompareRow, Delivery, FooterContent, GateEvent, NavLink, Outcome, Scenario, Step, Stopped } from './types'
+import type { Agent, Alternative, CompareRow, Delivery, FooterContent, GateEvent, NavLink, Outcome, Scenario, Step, Stopped, Tool } from './types'
 
 // All copy and demo data for VaultMCP. Agent names, events and counts are illustrative.
 
@@ -48,7 +48,23 @@ export const stopped: Stopped[] = [
   { when: 'Mon', agent: 'finance-agent', what: 'Called Stripe after its grant expired', why: 'Grant ended' },
 ]
 
-export const tools: string[] = ['Stripe', 'GitHub', 'Linear', 'Slack', 'Notion', 'Jira', 'Salesforce', 'HubSpot', 'Zendesk', 'Google Drive', 'Postgres', 'Intercom', 'Shopify', 'Confluence']
+/** Tools shown in the "works with" strip. `icon` is the Simple Icons slug (https://simpleicons.org). */
+export const tools: Tool[] = [
+  { name: 'Stripe', icon: 'stripe' },
+  { name: 'GitHub', icon: 'github' },
+  { name: 'Linear', icon: 'linear' },
+  { name: 'Notion', icon: 'notion' },
+  { name: 'Jira', icon: 'jira' },
+  { name: 'GitLab', icon: 'gitlab' },
+  { name: 'HubSpot', icon: 'hubspot' },
+  { name: 'Zendesk', icon: 'zendesk' },
+  { name: 'Google Drive', icon: 'googledrive' },
+  { name: 'Gmail', icon: 'gmail' },
+  { name: 'Postgres', icon: 'postgresql' },
+  { name: 'Intercom', icon: 'intercom' },
+  { name: 'Shopify', icon: 'shopify' },
+  { name: 'Confluence', icon: 'confluence' },
+]
 
 export const outcomes: Outcome[] = [
   { title: 'Agents that can act, with no keys to leak', body: 'Your agents use Stripe, GitHub, Linear and the rest. The API keys and OAuth tokens never reach them or the tool servers they call, so a tricked agent has nothing to hand over.', proof: '0 secrets in any tool environment' },

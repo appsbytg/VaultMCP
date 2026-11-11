@@ -24,7 +24,7 @@ export function Footer({ content }: { content: FooterContent }) {
       </Container>
       <Container className="flex flex-wrap justify-between gap-3 border-t border-zk-line py-6 text-[12.5px] text-zk-dim">
         <span>© 2026 VaultMCP</span>
-        <span>Every call checked. Every decision written down.</span>
+        <span>Product names and logos are trademarks of their owners, shown to indicate compatibility.</span>
       </Container>
       <Container aria-hidden className="pointer-events-none select-none">
         <p className="-mb-[0.22em] text-center text-[clamp(4rem,19vw,15rem)] font-semibold leading-none tracking-tightest text-white/[.035]">VaultMCP</p>

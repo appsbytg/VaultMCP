@@ -42,3 +42,5 @@ export interface Delivery {
   code: Array<{ label: string; title: string; body: string }>
   worksWith: string[]
 }
+
+export interface Tool { name: string; icon: string }
