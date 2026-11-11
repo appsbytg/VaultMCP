@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from 'node:url'
 // `npm run build`        -> dist/ for GitHub Pages, served from /vaultmcp/ (must match the repo name)
 // `npm run build:single` -> one self-contained dist-single/index.html
 export default defineConfig(({ mode }) => ({
-  base: mode === 'single' ? './' : '/vaultmcp/',
+  base: mode === 'single' ? './' : '/VaultMCP/',
 
   plugins: mode === 'single'
     ? [react(), viteSingleFile()]
