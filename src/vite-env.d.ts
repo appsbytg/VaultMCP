@@ -1,10 +1,12 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_BETA_ENDPOINT?: string
-}
-interface ImportMeta {
-  readonly env: ImportMetaEnv
+/** Injected by vite.config.ts (the SITE block). */
+declare const __SITE__: {
+  appName: string
+  apiUrl: string
+  posthogKey: string
+  posthogHost: string
+  posthogRecordSessions: boolean
 }
 
 /** Minimal shape of the claude.ai Artifact runtime used by the beta form. Absent everywhere else. */

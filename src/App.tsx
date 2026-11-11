@@ -8,8 +8,7 @@ import { GateLog } from './components/GateLog'
 import { Exposure } from './components/Exposure'
 import { Policies } from './components/Policies'
 import { Compare } from './components/Compare'
-import { CodeSnippet } from './components/CodeSnippet'
-import { Pricing } from './components/Pricing'
+import { Delivery } from './components/Delivery'
 import { Faq } from './components/Faq'
 import { FinalCta } from './components/FinalCta'
 import { Footer } from './components/Footer'
@@ -17,7 +16,7 @@ import { Footer } from './components/Footer'
 export default function App() {
   return (
     <>
-      <a href="#main" className="sr-only z-[60] rounded-full bg-vm-green px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
+      <a href="#main" className="sr-only z-[60] rounded-full bg-white px-4 py-2 text-zk-bg focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
       <Nav links={c.nav} />
       <main id="main">
         <Hero agents={c.agents} scenarios={c.scenarios} />
@@ -28,8 +27,7 @@ export default function App() {
         <Exposure />
         <Policies />
         <Compare alternatives={c.alternatives} rows={c.compareRows} />
-        <CodeSnippet />
-        <Pricing />
+        <Delivery content={c.delivery} />
         <Faq items={c.faqs} />
         <FinalCta />
       </main>

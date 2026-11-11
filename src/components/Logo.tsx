@@ -1,13 +1,13 @@
-export function Logo({ dark = false, className = '' }: { dark?: boolean; className?: string }) {
-  const c = dark ? '#E7C77E' : '#0F3D31'
+export function Logo({ className = '' }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden>
-        <circle cx="14" cy="14" r="12.5" fill="none" stroke={c} strokeWidth="2" />
-        <circle cx="14" cy="14" r="4.5" fill={c} />
-        <path d="M14 1.5v5M14 21.5v5M1.5 14h5M21.5 14h5" stroke={c} strokeWidth="2" />
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden>
+        <rect x=".5" y=".5" width="25" height="25" rx="7" fill="#0F1424" stroke="#252E4A" />
+        <circle cx="13" cy="13" r="7" fill="none" stroke="#EDF0F7" strokeWidth="2" />
+        <circle cx="13" cy="13" r="2.4" fill="#FFB224" />
+        <path d="M13 3.5v3M13 19.5v3M3.5 13h3M19.5 13h3" stroke="#EDF0F7" strokeWidth="2" strokeLinecap="round" />
       </svg>
-      <span className={`font-serif text-[23px] leading-none ${dark ? 'text-white' : 'text-vm-ink'}`}>VaultMCP</span>
+      <span className="text-[17px] font-semibold tracking-[-0.02em] text-zk-fg">Vault<span className="text-zk-muted">MCP</span></span>
     </span>
   )
 }

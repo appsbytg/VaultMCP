@@ -15,8 +15,8 @@ A standalone React 18 + TypeScript + Tailwind CSS 3 site, built with Vite 5. It 
 ## Structure
 
     src/App.tsx
-    src/components/CodeSnippet.tsx
     src/components/Compare.tsx
+    src/components/Delivery.tsx
     src/components/Exposure.tsx
     src/components/Faq.tsx
     src/components/FinalCta.tsx
@@ -29,7 +29,6 @@ A standalone React 18 + TypeScript + Tailwind CSS 3 site, built with Vite 5. It 
     src/components/Nav.tsx
     src/components/Outcomes.tsx
     src/components/Policies.tsx
-    src/components/Pricing.tsx
     src/components/ToolStrip.tsx
     src/content.ts
     src/gate.ts
@@ -39,9 +38,13 @@ A standalone React 18 + TypeScript + Tailwind CSS 3 site, built with Vite 5. It 
     src/shared/BetaForm.tsx
     src/shared/Container.tsx
     src/shared/Marquee.tsx
+    src/shared/analytics.ts
+    src/shared/apiStatus.ts
     src/shared/betaSignup.ts
     src/shared/cx.ts
     src/shared/hooks.ts
+    src/shared/posthog.ts
+    src/shared/siteConfig.ts
     src/types.ts
     src/ui.tsx
     src/vite-env.d.ts
@@ -52,14 +55,34 @@ A standalone React 18 + TypeScript + Tailwind CSS 3 site, built with Vite 5. It 
 - `shared/`: Container, Marquee, Accordion, BetaForm, signup logic and hooks.
 - Design tokens (colours, fonts, animations) live in `tailwind.config.ts`.
 
-## Beta signups
+## Configure: API, PostHog, Pages path
 
-Copy `.env.example` to `.env` and set `VITE_BETA_ENDPOINT` to any URL that accepts a JSON POST (Formspree, a Supabase function or your own API).
-Without it, the form saves to the claude.ai Artifact store when it runs as an artifact. Anywhere else it tells the visitor nothing was sent.
+Everything you need to change is in the `SITE` block at the top of `vite.config.ts`:
+
+| Setting | What it is |
+|---|---|
+| `appName` | `'vaultmcp'`. How this site appears in landing-backend and PostHog. Don't change it once live. |
+| `apiUrl` | Your landing-backend URL, e.g. `https://api.your-domain.com`. |
+| `posthogKey` | PostHog project key (`phc_…`). Empty = PostHog off. |
+| `posthogHost` | `https://us.i.posthog.com`, `https://eu.i.posthog.com` or self-hosted. |
+| `posthogRecordSessions` | Session replays on or off (inputs are masked). |
+| `PAGES_BASE` | GitHub Pages path; must match the repo name exactly. |
+
+In CI you can override `apiUrl` and the PostHog values with `VITE_API_URL`, `VITE_POSTHOG_KEY` and `VITE_POSTHOG_HOST` (see `.env.example`) instead of editing the file.
+
+**Tracking** (`src/shared/analytics.ts`) records the visit's source (UTM, click ids, referrer), active time, sections viewed and time in each, scroll depth, clicks, demo use and the signup funnel. It sends batches to the backend and mirrors key events to PostHog.
+
+**Signup availability:** the page checks `apiUrl/health` on load. If the API doesn't answer (or `apiUrl` is still the placeholder), the form shows "Signups are paused for a moment" with a Try again button, and re-checks every 30 seconds. Inside a claude.ai Artifact it falls back to the Artifact's own store instead.
+
+## How it's delivered
+
+The "How you'll use it" section (`components/Delivery.tsx`, content in `delivery` in `content.ts`) shows the one way customers use the product: a hosted service on our servers. It covers what runs on their side and on ours, what they get, the setup steps and a copyable snippet. Interest is tracked: time on the section, snippet copies and "get early access" clicks. Compare it across sites with:
+
+    GET /v1/admin/apps/vaultmcp/summary  ->  setup.viewedSessions / copiedSessions / requestedSessions
 
 ## Deploy
 
-GitHub Pages: `vite.config.ts` sets `base: '/vaultmcp/'` for normal builds, so the site works at `https://<user>.github.io/vaultmcp/`. If your repository has a different name, change that value to `/<repo-name>/`. Then `npm ci && npm run build` and publish the `dist/` folder.
+GitHub Pages: `vite.config.ts` sets `base: '/VaultMCP/'` for normal builds, so the site works at `https://<user>.github.io/VaultMCP/`. If your repository has a different name, change that value to `/<repo-name>/`. Then `npm ci && npm run build` and publish the `dist/` folder.
 
 Other static hosts (Vercel, Netlify, Cloudflare Pages) serve from the root: set `base` to `'/'` there.
 

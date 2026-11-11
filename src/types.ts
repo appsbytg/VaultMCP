@@ -29,3 +29,16 @@ export type CompareRow = [label: string, values: [Support, Support, Support, Sup
 
 export interface FooterColumn { title: string; links: Array<[label: string, href: string]> }
 export interface FooterContent { tagline: string; columns: FooterColumn[] }
+
+export interface Delivery {
+  name: string
+  summary: string
+  youGet: string[]
+  steps: string[]
+  /** What runs where: shown as a three-part diagram */
+  yourSide: { title: string; items: string[] }
+  ourSide: { title: string; items: string[] }
+  reaches: { title: string; items: string[] }
+  code: Array<{ label: string; title: string; body: string }>
+  worksWith: string[]
+}

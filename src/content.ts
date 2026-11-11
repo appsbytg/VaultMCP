@@ -1,5 +1,5 @@
 import type { FaqItem } from './shared/Accordion'
-import type { Agent, Alternative, CompareRow, FooterContent, GateEvent, NavLink, Outcome, Scenario, Step, Stopped } from './types'
+import type { Agent, Alternative, CompareRow, Delivery, FooterContent, GateEvent, NavLink, Outcome, Scenario, Step, Stopped } from './types'
 
 // All copy and demo data for VaultMCP. Agent names, events and counts are illustrative.
 
@@ -8,7 +8,7 @@ export const nav: NavLink[] = [
   { label: 'How it works', href: '#how' },
   { label: 'Policies', href: '#policies' },
   { label: 'Why VaultMCP', href: '#compare' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'How to use it', href: '#delivery' },
 ]
 
 export const agents: Agent[] = [
@@ -86,14 +86,51 @@ export const faqs: FaqItem[] = [
   { q: 'What happens when an agent is tricked by a prompt injection?', a: 'It can ask for anything, but it can only do what its role allows, and there are no secrets anywhere it can reach. The attempt is logged and flagged so you can see it.' },
   { q: 'Does the gate slow agents down?', a: 'Each check is small and busy servers stay warm. Keeping latency low for interactive agents is a core beta goal, and we’ll measure it with you.' },
   { q: 'What if a vendor ships its own hosted MCP server?', a: 'Connect it through VaultMCP anyway. You keep one policy, one audit log and one endpoint across every tool, whoever hosts it.' },
-  { q: 'What does the beta cost?', a: 'Nothing. Beta teams use VaultMCP free and keep founding-team pricing afterwards.' },
+  { q: 'Do I need to install anything?', a: 'No. VaultMCP runs as a service. Your agents connect to one hosted MCP endpoint, and you manage tools, roles and logs in the web console.' },
+  { q: 'What does the beta cost?', a: 'Nothing during the beta. We’ll set pricing with beta teams before general availability, and they keep founding-team terms.' },
 ]
 
 export const footer: FooterContent = {
   tagline: 'Tools for your agents. Keys for no one.',
   columns: [
-    { title: 'Product', links: [['What you get', '#get'], ['How it works', '#how'], ['Policies', '#policies'], ['Pricing', '#pricing']] },
+    { title: 'Product', links: [['What you get', '#get'], ['How it works', '#how'], ['Policies', '#policies'], ['How to use it', '#delivery']] },
     { title: 'Beta', links: [['Join the beta', '#beta'], ['FAQ', '#faq']] },
     { title: 'Company', links: [['About', '#top'], ['Contact', '#beta']] },
   ],
+}
+
+export const delivery: Delivery = {
+  name: 'Hosted MCP gateway',
+  summary: 'VaultMCP runs as a service on our servers. Your agents connect to it like any MCP server, and we run the gate, the vault and your tool servers behind it.',
+  youGet: [
+    'A private MCP endpoint for your workspace',
+    'Your tool servers hosted for you, asleep when idle',
+    'Credentials sealed in the vault, never sent to agents',
+    'A web console for tools, roles and the gate log',
+    'A token per agent role, revocable in one click',
+  ],
+  steps: [
+    'Connect your services in the console: sign in with OAuth or paste a key once, and it’s sealed',
+    'Create a role for each agent and choose what it may do',
+    'Add the endpoint and the agent’s token to your MCP client',
+  ],
+  yourSide: { title: 'Your side', items: ['Your agent or MCP client', 'One endpoint + an agent token'] },
+  ourSide: { title: 'VaultMCP (our cloud)', items: ['Gate: checks every call', 'Vault: sealed credentials', 'Hosted tool servers', 'Audit log'] },
+  reaches: { title: 'Your services', items: ['Stripe', 'GitHub', 'Linear', 'Slack', 'and more'] },
+  code: [
+    {
+      label: 'MCP config',
+      title: 'mcp.json',
+      body: `{
+  "mcpServers": {
+    "vault": {
+      "url": "<your workspace endpoint>/mcp",
+      "headers": { "Authorization": "Bearer <agent-token>" }
+    }
+  }
+}
+// that's the whole integration: no SDK, no provider keys in your agent`,
+    },
+  ],
+  worksWith: ['Claude', 'Cursor', 'LangGraph', 'OpenAI Agents SDK', 'any MCP client'],
 }
